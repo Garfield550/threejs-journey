@@ -1,33 +1,41 @@
 'use client'
 
+import { useTexture } from "@react-three/drei"
 import { MeshProps } from "@react-three/fiber"
 import { forwardRef, useCallback, useState } from "react"
-import { BufferAttribute, Mesh } from "three"
+import { Mesh } from "three"
 
-const positions = new Float32Array(5000 * 3 * 3).map(() => (Math.random() - 0.5) * 5)
-const positionsAttribute = new BufferAttribute(positions, 3)
+import doorColor from '../textures/door/color.jpg'
+import doorAlpha from '../textures/door/alpha.jpg'
+import doorHeight from '../textures/door/height.jpg'
+import doorNormal from '../textures/door/normal.jpg'
+import doorRoughness from '../textures/door/roughness.jpg'
+import doorMetalness from '../textures/door/metalness.jpg'
+import doorAmbientOcclusion from '../textures/door/ambientOcclusion.jpg'
 
 const Box = forwardRef<Mesh, MeshProps>(function Box(props, ref) {
-    const [hovered, setHovered] = useState(false)
     const [clicked, setClicked] = useState(false)
 
+    const textures = useTexture({
+        map: doorColor.src,
+        alphaMap: doorAlpha.src,
+        displacementMap: doorHeight.src,
+        normalMap: doorNormal.src,
+        roughnessMap: doorRoughness.src,
+        metalnessMap: doorMetalness.src,
+        aoMap: doorAmbientOcclusion.src
+    })
+
     const handleClick = useCallback(() => setClicked((c) => !c), [])
-    const handlePointerOver = useCallback(() => setHovered(true), [])
-    const handlePointerOut = useCallback(() => setHovered(false), [])
 
     return (
         <mesh
             {...props}
             ref={ref}
             scale={clicked ? 2 : 1}
-            onClick={handleClick}
-            onPointerOver={handlePointerOver}
-            onPointerOut={handlePointerOut}>
-            {/* <boxGeometry args={[1, 1, 1, 2, 2, 2]} /> */}
-            <bufferGeometry>
-                <bufferAttribute attach="attributes-position" {...positionsAttribute} />
-            </bufferGeometry>
-            <meshStandardMaterial wireframe color={hovered ? 'hotpink' : 'orange'} />
+            onClick={handleClick}>
+            <boxGeometry args={[1, 1, 1]} />
+            <meshStandardMaterial {...textures} />
         </mesh>
     )
 })
