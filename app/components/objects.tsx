@@ -1,56 +1,45 @@
-import { Center, FontData, Text3D, Torus, useFont, useTexture } from "@react-three/drei";
-import { Fragment } from "react";
+import { Box, Plane, Sphere, Torus } from "@react-three/drei";
+import { Fragment, useRef } from "react";
 
-import droidSans from '../fonts/droid/droid_sans_regular.typeface.json' with { type: 'json' };
-
-import matcapTexture from '../textures/matcaps/1.png'
-
-const object100 = new Array(100).fill(null)
+import { useFrame } from "@react-three/fiber";
+import { Mesh } from "three";
 
 export default function Objects() {
-  const droidFont = useFont(droidSans as unknown as FontData)
-  const matcap = useTexture(matcapTexture.src)
+  const sphere = useRef<Mesh>(null)
+  const cube = useRef<Mesh>(null)
+  const torus = useRef<Mesh>(null)
+
+  useFrame((_, delta) => {
+    if (sphere.current) {
+      sphere.current.rotation.x += 0.15 * delta
+      sphere.current.rotation.y -= 0.1 * delta
+    }
+
+    if (cube.current) {
+      cube.current.rotation.x += 0.15 * delta
+      cube.current.rotation.y -= 0.1 * delta
+    }
+
+    if (torus.current) {
+      torus.current.rotation.x += 0.15 * delta
+      torus.current.rotation.y -= 0.1 * delta
+    }
+  })
 
   return (
     <Fragment>
-      <Center>
-        <Text3D
-          font={droidFont.data}
-          size={0.5}
-          height={0.2}
-          curveSegments={12}
-          bevelEnabled
-          bevelThickness={0.03}
-          bevelSize={0.02}
-          bevelOffset={0}
-          bevelSegments={5}
-        >
-          Text 3D
-          <meshMatcapMaterial matcap={matcap} />
-        </Text3D>
-      </Center>
-      {object100.map((_, index) => {
-        const scale = Math.random()
-        return (
-          <Torus
-            key={index}
-            args={[0.3, 0.2, 20, 45]}
-            position={[
-              (Math.random() - 0.5) * 10,
-              (Math.random() - 0.5) * 10,
-              (Math.random() - 0.5) * 10
-            ]}
-            rotation={[
-              Math.random() * Math.PI,
-              Math.random() * Math.PI,
-              0
-            ]}
-            scale={[scale, scale, scale]}
-          >
-            <meshMatcapMaterial matcap={matcap} />
-          </Torus>
-        )
-      })}
+      <Sphere ref={sphere} args={[0.5, 32, 32]} position={[-1.5, 0, 0]}>
+        <meshStandardMaterial roughness={0.4} />
+      </Sphere>
+      <Box ref={cube} args={[0.75, 0.75, 0.75]} position={[0, 0, 0]}>
+        <meshStandardMaterial roughness={0.4} />
+      </Box>
+      <Torus ref={torus} args={[0.3, 0.2, 32, 64]} position={[1.5, 0, 0]}>
+        <meshStandardMaterial roughness={0.4} />
+      </Torus>
+      <Plane args={[5, 5]} position={[0, 0, -0.65]}>
+        <meshStandardMaterial roughness={0.4} />
+      </Plane>
     </Fragment>
   )
 }
