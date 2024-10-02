@@ -50,7 +50,7 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="w-[1024px] h-[768px]">
+        <div className="w-[1024px] h-[768px] bg-black">
           <Scene />
         </div>
       </main>
