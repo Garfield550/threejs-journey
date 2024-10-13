@@ -9,7 +9,7 @@ import { useFrame } from "@react-three/fiber";
 const positions = new Float32Array(20000 * 3).map(() => (Math.random() - 0.5) * 10)
 const colors = new Float32Array(20000 * 3).map(() => Math.random())
 
-export default function Objects() {
+export default function Particles() {
   const points = useRef<ThreePoints>(null)
   const texture = useTexture(particlesTexture.src)
 
