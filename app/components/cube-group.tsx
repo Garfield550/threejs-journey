@@ -1,9 +1,9 @@
-import { GroupProps, useFrame, useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import { Mesh } from "three";
-import { useRef } from "react";
+import { ComponentPropsWithRef, useRef } from "react";
 import { Box } from "@react-three/drei";
 
-export default function CubeGroup(props: GroupProps) {
+export default function CubeGroup(props: ComponentPropsWithRef<'group'>) {
   const cube1 = useRef<Mesh>(null);
   const cube2 = useRef<Mesh>(null);
   const cube3 = useRef<Mesh>(null);

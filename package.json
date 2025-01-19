@@ -10,23 +10,29 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@react-three/drei": "^9.120.4",
-    "@react-three/fiber": "^8.17.10",
-    "next": "^14.2.21",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "@react-three/drei": "^9.121.2",
+    "@react-three/fiber": "9.0.0-rc.4",
+    "next": "^15.1.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "sharp": "^0.33.5",
-    "three": "^0.170.0"
+    "three": "^0.172.0"
   },
   "devDependencies": {
-    "@types/node": "^20.17.10",
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.3.5",
-    "@types/three": "^0.169.0",
-    "eslint": "^8.57.1",
-    "eslint-config-next": "^14.2.21",
-    "postcss": "^8.4.49",
+    "@eslint/eslintrc": "^3.2.0",
+    "@types/node": "^22.10.7",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "@types/three": "^0.172.0",
+    "eslint": "^9.18.0",
+    "eslint-config-next": "^15.1.5",
+    "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "three-stdlib": "npm:three-stdlib@2.35.7"
+    }
   }
 }
